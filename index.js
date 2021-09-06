@@ -48,16 +48,39 @@ const player = {
     { id: 5, name: 'Israeli', songs: [4, 5] },
   ],
   playSong(song) {
-    console.log(/* your code here */)
+    console.log(`Playing ${song.title} from ${song.album} by ${song.artist} | ${duration(song.duration)}.`)
   },
+}
+function duration (duration)
+{
+  let min = Math.floor(duration / 60);
+  let sec = duration % 60;
+  
+  if(min < 10){
+    min = "0" + String(min);
+  }
+  if (sec < 10) {
+    sec = "0" + String(sec);
+  }
+  return min+':'+sec
 }
 
 function playSong(id) {
-  // your code here
+  for (let song of player.songs){
+    if (song.id === id)
+    {
+      return player.playSong(song);
+    }
+  }
 }
 
 function removeSong(id) {
-  // your code here
+  for (let song of player.songs){
+    if(song.id === id)
+    {
+
+    }
+  }
 }
 
 function addSong(title, album, artist, duration, id) {
@@ -105,3 +128,4 @@ module.exports = {
   searchByQuery,
   searchByDuration,
 }
+
