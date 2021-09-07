@@ -149,8 +149,18 @@ function addSong(title, album, artist, duration, id) {
   return id;
 }
 
+// find the playlist by id
+function getPlaylistID (id){
+  for (let i = 0; i < player.playlists.length; i++) {
+    if (player.playlists[i].id === id)
+      return player.playlists[i]
+  }
+  throw new Error("No such ID");
+}
 function removePlaylist(id) {
-  // your code here
+
+  let playerlistIndex = player.playlists.indexOf(getPlaylistID(id))
+  player.playlists.splice(playerlistIndex,1);
 }
 
 function createPlaylist(name, id) {
