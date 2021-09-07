@@ -183,7 +183,12 @@ function createPlaylist(name, id) {
 }
 
 function playPlaylist(id) {
-  // your code here
+  
+  let playPlaylistIndex = player.playlists.indexOf(getPlaylistID(id))
+  for (let idSong of player.playlists[playPlaylistIndex].songs)
+  {
+    playSong(idSong);
+  }
 }
 
 function editPlaylist(playlistId, songId) {
