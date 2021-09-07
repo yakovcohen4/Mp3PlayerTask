@@ -103,7 +103,7 @@ function removeSong(id)
 }
 
 
-// Does an ID exist in the songs
+// Does an ID exist in the songs/playlist
 function isIdExist (arr, id)
 {
   for (let i=0; i<arr.length; i++){
@@ -112,7 +112,7 @@ function isIdExist (arr, id)
   }
   return false;
 }
-// find max ID in song
+// find max ID in song/playlist
 function maxID (arr)
 {
   let max=0;
@@ -164,7 +164,22 @@ function removePlaylist(id) {
 }
 
 function createPlaylist(name, id) {
-  // your code here
+
+  if (isIdExist(player.playlists, id)){
+    throw 'this id already exist!';
+  }
+
+  if (id === undefined){
+    id = maxID(player.playlists) +1;
+  }
+
+  let newPlaylists = {
+    id: id, 
+    name: name,
+    songs: []
+  }
+  player.playlists.push(newPlaylists);
+  return id;
 }
 
 function playPlaylist(id) {
