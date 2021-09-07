@@ -102,8 +102,51 @@ function removeSong(id)
   }
 }
 
+
+// Does an ID exist in the songs
+function isIdExist (arr, id)
+{
+  for (let i=0; i<arr.length; i++){
+    if (arr[i].id === id)
+      return true;
+  }
+  return false;
+}
+// find max ID in song
+function maxID (arr)
+{
+  let max=0;
+  for (let i = 0; i < arr.length; i++) 
+  {
+    if (arr[i].id > max) 
+      max = arr[i].id;
+  }
+  return max;
+}
+
 function addSong(title, album, artist, duration, id) {
-  // your code here
+
+  if (isIdExist(player.songs, id)){
+    throw 'this id already exist!';
+  }
+  
+  if (id === undefined){
+    id = maxID(player.songs) +1;
+  }
+
+  duration = duration.split(":");
+  duration = parseInt(duration[0] *60) + parseInt(duration[1]);
+
+  let newSong = {
+    id: id,
+    title: title,
+    album: album,
+    artist: artist,
+    duration: duration,
+  };
+
+  player.songs.push(newSong);
+  return id;
 }
 
 function removePlaylist(id) {
