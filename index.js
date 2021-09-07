@@ -48,15 +48,17 @@ const player = {
     { id: 5, name: 'Israeli', songs: [4, 5] },
   ],
   playSong(song) {
-    console.log(`Playing ${song.title} from ${song.album} by ${song.artist} | ${duration(song.duration)}.`)
+    console.log(`Playing ${song.title} from ${song.album} by ${song.artist} | ${durationConvert(song.duration)}.`)
   },
 }
-function duration (duration)
+
+// convert to mm:ss
+function durationConvert(duration)
 {
   let min = Math.floor(duration / 60);
   let sec = duration % 60;
   
-  if(min < 10){
+  if (min < 10){
     min = "0" + String(min);
   }
   if (sec < 10) {
@@ -72,13 +74,30 @@ function playSong(id) {
       return player.playSong(song);
     }
   }
+  throw new Error("No such ID");
 }
 
-function removeSong(id) {
-  for (let song of player.songs){
-    if(song.id === id)
-    {
+// find the song by id
+function getSongID(id)
+{
+  for (let i = 0; i < player.songs.length; i++) {
+    if (player.songs[i].id === id)
+      return player.songs[i]
+  }
+  throw new Error("No such ID");
+}
 
+function removeSong(id) 
+{
+  let songIndex = player.songs.indexOf(getSongID(id))
+  player.songs.splice(songIndex,1);
+
+  for (let i=0; i<player.playlists.length; i++)
+  {
+    for (let j=0; j<player.playlists[i].songs.length; j++)
+    {
+      if (player.playlists[i].songs[j] === id)
+        player.playlists[i].songs.splice(j,1);
     }
   }
 }
