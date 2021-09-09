@@ -192,7 +192,33 @@ function playPlaylist(id) {
 }
 
 function editPlaylist(playlistId, songId) {
-  // your code here
+  
+  let indexPlaylist = player.playlists.findIndex(i => i.id===playlistId);
+  let songIndex = player.songs.findIndex(i => i.id === songId);
+  let songIndexInPlaylist = player.playlists[indexPlaylist].songs.indexOf(songId);
+
+  if (songIndex === -1)
+  {
+    throw("There isn't a song with that ID");
+  }
+  if (indexPlaylist === -1)
+  {
+    throw("There isn't a playlist with that ID")
+  }
+
+  if (player.playlists[indexPlaylist].songs.includes(songId) === false)
+  {
+    player.playlists[indexPlaylist].songs.push(songId);
+  }  
+  else 
+  {
+    player.playlists[indexPlaylist].songs.splice(songIndexInPlaylist,1);
+  }
+
+  if (player.playlists[indexPlaylist].songs.length === 0) 
+  {
+    player.playlists.splice(indexPlaylist,1);
+  }
 }
 
 function playlistDuration(id) {
