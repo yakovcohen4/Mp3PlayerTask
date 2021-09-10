@@ -233,7 +233,33 @@ function playlistDuration(id) {
 }
 
 function searchByQuery(query) {
-  // your code here
+  
+  let songs = [];
+  let playlists = [];
+  query = query.toLowerCase();
+
+  for (let song of player.songs)
+  {
+    if( (song.title.toLowerCase().replace(/[\W_]/g , "").includes(query)) || 
+        (song.album.toLowerCase().replace(/[\W_]/g , "").includes(query)) || 
+        (song.artist.toLowerCase().replace(/[\W_]/g , "").includes(query)) )
+    {
+      songs.push(song);
+    }
+  }
+
+  for (let playlist of player.playlists)
+  {
+    if (playlist.name.toLowerCase().replace(/[\W_]/g , "").includes(query))
+    {
+      playlists.push(playlist);
+    }
+  }
+
+  songs.sort((a,b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
+  playlists.sort((a,b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
+
+return {songs,playlists};
 }
 
 function searchByDuration(duration) {
