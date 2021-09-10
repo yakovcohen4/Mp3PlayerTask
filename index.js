@@ -263,7 +263,30 @@ return {songs,playlists};
 }
 
 function searchByDuration(duration) {
-  // your code here
+  
+  duration = duration.split(":");
+  duration = parseInt(duration[0] *60) + parseInt(duration[1]);
+
+  let closestTime = Math.abs(player.songs[0].duration - duration);
+  let closest = player.songs[0];
+
+  for (let song of player.songs)
+  {
+    if ( Math.abs(song.duration - duration) < closestTime  )
+    {
+      closestTime = Math.abs(song.duration - duration);
+      closest = song;
+    }
+  }
+  for (let playlist of player.playlists)
+  {
+    if ( Math.abs(playlistDuration(playlist.id) - duration) < closestTime )
+    {
+      closestTime = (playlistDuration(playlist.id) - duration);
+      closest = playlist;
+    }
+  }
+  return closest
 }
 
 module.exports = {
